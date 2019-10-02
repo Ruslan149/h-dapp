@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hello dAPPs by CREDITS</title>
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+	
+	<link href="css/prism.css?dgd" rel="stylesheet">
+	<link href="css/style.css?hnjfcs" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,800,900&amp;subset=cyrillic" rel="stylesheet">
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.4/ace.js"></script>
+	
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div class="row justify_between align_center">
+				<div class="logo">
+					<img src="img/Logo_Cr.png">
+				</div>
+				<div class="label">dApps build guide</div>
+			</div>
+		</div>
+	</header>
+	<div class="wrapper">
+		<div class="">
+			<p>Для работы этого гайда у вас должно быть установлено браузерное расширение CESER (<a href="https://ceser.io/">скачать с ceser.io</a>). Здесь примеры вызовов и ответов, а так же вы можете открыть консоль браузера и увидеть это своими глазами.</p>
+		</div>
+		<hr>
+		<div class="section">
+			<p>Запросить баланс, функция CreditsExtension.BalanceGet</p>
+			<div class="row justify_between align_center">
+				<div><p class="inner-p">Пример вызова:</p>
+<pre><code class="language-javascript">CreditsExtension.balanceGet().then(r=> {
+		console.log(r);
+	}, r=>  {console.log(r)});</code></pre>
+				</div>
+				<div class="call">
+					<button id="balanceInit">Вызов</button>
+				</div>
+				<div class="right-column"><p class="inner-p">Ответ <span id="balanceGet"></span></p>
+					<div class="editor-window" id="editor" ></div>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="section">
+			<p>Проверка авторизации, функция CreditsExtension.authorization</p>
+			<div class="row justify_between align_center">
+				<div><p class="inner-p">Пример вызова:</p>
+<pre><code class="language-javascript">CreditsExtension.authorization().then(
+	r=> {console.log(r);
+	}, r=> {console.log(r)});</code></pre>
+				</div>
+				<div class="call">
+					<button id="authorizationInit">Вызов</button>
+				</div>
+				<div class="right-column"><p class="inner-p">Ответ <span id="AuthorizationGet"></span></p>
+					<div class="editor-window" id="editorAuthorization" ></div>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="section">
+			<p>Запросить текущую сеть, функция CreditsExtension.curNet</p>
+			<div class="row justify_between align_center">
+				<div><p class="inner-p">Пример вызова:</p>
+<pre><code class="language-javascript">CreditsExtension.curNet().then(r=> {
+		console.log(r);
+	}, r=>  {console.log(r)});</code></pre>
+				</div>
+				<div class="call">
+					<button id="keyInit">Вызов</button>
+				</div>
+				<div class="right-column"><p class="inner-p">Ответ <span id="KeyGet"></span></p>
+					<div class="editor-window" id="editorKey" ></div>
+				</div>
+			</div>
+		</div>
+		<hr>
+
+		<div class="section">
+			<p>Компиляция смартконтракта, функция CreditsExtension.compiledSmartContractCode</p>
+			<div class="row justify_between align_center">
+				<div><p class="inner-p">Пример вызова:</p>
+<pre><code class="language-javascript">CreditsExtension.compiledSmartContractCode(code)
+	.then(r=> {
+		console.log(r);
+		CreditsExtension.sendTransaction({
+			smartContract: {
+				code: code
+			}
+		}).then(r => {
+			console.log(r);
+		}, r=> {console.log(r)})
+	}, r=>  {console.log(r)});</code></pre>
+				</div>
+				<div class="call">
+					<button id="compileInit">Вызов</button>
+				</div>
+				<div class="right-column"><p class="inner-p">Ответ <span id="compileGet"></span></p>
+					<div class="editor-window" id="editorCompile" ></div>
+				</div>
+			</div>
+		</div>
+		<hr>
+
+		<div class="section">
+			<p>Запрос публичного ключа, функция CreditsExtension.user</p>
+			<div class="row justify_between align_center">
+				<div><p class="inner-p">Пример вызова:</p>
+<pre><code class="language-javascript">CreditsExtension.user().then(r=> {
+		console.log(r);
+	}, r=>  {console.log(r)});</code></pre>
+				</div>
+				<div class="call">
+					<button id="userKeyInit">Вызов</button>
+				</div>
+				<div class="right-column"><p class="inner-p">Ответ <span id="userKeyGet"></span></p>
+					<div class="editor-window" id="editorUserKey" ></div>
+				</div>
+			</div>
+		</div>
+		<hr>
+
+		<div class="section">
+			<p>Отправка денег на кошелек или смартконтракт, функция CreditsExtension.sendTransaction</p>
+			<div class="row justify_between align_center">
+				<div><p class="inner-p">Пример вызова:</p>
+<pre><code class="language-javascript">CreditsExtension.sendTransaction({
+		target: 'vallet or smartcontract', 
+		amount: 'amountOfCS'
+	}).then(r => {
+		console.log(r);
+	}, r => {console.log(r)});</code></pre>
+				</div>
+				<div class="call">
+					<button id="trnsMoneyInit">Вызов</button>
+				</div>
+				<div class="right-column"><p class="inner-p">Ответ <span id="trnsMoneyGet"></span></p>
+					<div class="editor-window" id="editorTrnsMoney" ></div>
+				</div>
+			</div>
+		</div>
+		<hr>
+		
+		<div class="section">
+			<p>Отправка денег на смартконтракт с дополнительными данными, функция CreditsExtension.sendTransaction</p>
+			<div class="row justify_between align_center">
+				<div><p class="inner-p">Пример вызова:</p>
+<pre><code class="language-javascript">CreditsExtension.sendTransaction({
+		target: 'smartcontract', 
+		amount: 'amountOfCS',
+		userData: 'yourData'
+	}).then(r => {
+		console.log(r);
+	}, r => {console.log(r)});</code></pre>
+				</div>
+				<div class="call">
+					<button id="TrnsWithDataInit">Вызов</button>
+				</div>
+				<div class="right-column"><p class="inner-p">Ответ <span id="trnsWithDataGet"></span></p>
+					<div class="editor-window" id="editorTrnsWithData" ></div>
+				</div>
+			</div>
+		</div>
+		<hr>
+
+
+		<div class="section">
+			<p>Запрос метода смартконтракта(сложение 3+2) c передачей параметров, <br>функция CreditsExtension.sendTransaction</p>
+			<div class="row justify_between align_center">
+				<div><p class="inner-p">Пример вызова:</p>
+<pre><code class="language-javascript">CreditsExtension.sendTransaction({
+		target: 'smartcontractAdress',
+		smartContract:
+		{
+			params: [{ k: "INT", v: 2 }, 
+			{ k: "INT", v: 3 }],
+			method: "sum"
+		}
+		}).then(r => {
+		console.log(r);
+	}, r=> {console.log(r)});</code></pre>
+				</div>
+				<div class="call">
+					<button id="MethodWithParamInit">Вызов</button>
+				</div>
+				<div class="right-column"><p class="inner-p">Ответ <span id="MethodWithParamGet"></span></p>
+					<div class="editor-window" id="editorMethodWithParam" ></div>
+				</div>
+			</div>
+		</div>
+		<hr>
+	</div>
+	<script src="js/prism.js?dgdgd"></script>
+	<script>
+		jQuery(document).ready(function () {
+			ace.require("ace/ext/language_tools");
+			var e = ace.edit('editor');
+			e.getSession().setMode("ace/mode/javascript");
+			e.setTheme("ace/theme/xcode");
+
+			var a = ace.edit('editorAuthorization');
+			a.getSession().setMode("ace/mode/javascript");
+			a.setTheme("ace/theme/xcode");
+
+			var k = ace.edit('editorKey');
+			k.getSession().setMode("ace/mode/javascript");
+			k.setTheme("ace/theme/xcode");
+
+			var c = ace.edit('editorCompile');
+			c.getSession().setMode("ace/mode/javascript");
+			c.setTheme("ace/theme/xcode");
+
+			var u = ace.edit('editorUserKey');
+			u.getSession().setMode("ace/mode/javascript");
+			u.setTheme("ace/theme/xcode");
+
+			var t = ace.edit('editorTrnsMoney');
+			t.getSession().setMode("ace/mode/javascript");
+			t.setTheme("ace/theme/xcode");
+
+			var d = ace.edit('editorTrnsWithData');
+			d.getSession().setMode("ace/mode/javascript");
+			d.setTheme("ace/theme/xcode");
+
+			var mp = ace.edit('editorMethodWithParam');
+			mp.getSession().setMode("ace/mode/javascript");
+			mp.setTheme("ace/theme/xcode");
+
+			// e.setOptions({
+			//     enableLiveAutocompletion: true
+			// });
+			console.log(e.getValue());
+
+			$('#authorizationInit').on('click', function(event) {
+				CreditsExtension.authorization().then(
+					r=> {console.log(r);
+						// $('#authorization').html(r);
+						let authorization = r;
+						ace.edit('editorAuthorization').setValue(authorization + '');}, 
+						r=> {console.log(r)});
+
+			});
+
+			$('#balanceInit').on('click', function(event) {
+				CreditsExtension.balanceGet().then(r=> {
+					console.log(r);
+					// $('#balanceGet').html(r.Credits_CS);
+					let balance = r.Credits_CS
+					ace.edit('editor').setValue(balance + '');
+				}, r=>  {console.log(r)});
+			});
+
+			$('#keyInit').on('click', function(event) {
+				CreditsExtension.curNet().then(r=> {
+					console.log(r);
+					let key = r;
+					ace.edit('editorKey').setValue(key + '');
+				}, r=>  {console.log(r)});
+			});
+
+			$('#userKeyInit').on('click', function(event) {
+				CreditsExtension.user().then(r=> {
+					console.log(r);
+					let key = r;
+					ace.edit('editorUserKey').setValue(key + '');
+				}, r=>  {console.log(r)});
+			});
+
+			$('#trnsMoneyInit').on('click', trnsMoney);
+
+			function trnsMoney(){
+				$(this).unbind('click');
+				$('body').css('cursor', 'progress');
+				let conf = confirm("В данном примере спишется и вернется назад 0.1 cs с вычетом комиссии. Вы уверены?");
+				if (conf) {
+					CreditsExtension.sendTransaction({
+						target: 'J5tSM61AqGy9X9zvuZqcy25yGcTSm2XHm41bM4YuF3wc', 
+						amount: '0.1'
+					}).then(r => {
+						console.log(r);
+						let key = r.status.message;
+						ace.edit('editorTrnsMoney').setValue(key + '');
+						$('body').css('cursor', 'default');
+					}, r => {
+						console.log(r);
+						$('body').css('cursor', 'default');
+						$("#trnsMoneyInit").bind('click');
+						$("#trnsMoneyInit").on('click', trnsMoney);
+					});
+				} else{
+					$('body').css('cursor', 'default');
+					$("#trnsMoneyInit").bind('click');
+					$("#trnsMoneyInit").on('click', trnsMoney);
+				}
+			}
+			
+			$('#TrnsWithDataInit').on('click', TrnsWithData);
+
+			function TrnsWithData(){
+				$(this).unbind('click');
+				$('body').css('cursor', 'progress');
+				let conf = confirm("В данном примере спишется и вернется назад 0.1 cs с вычетом комиссии. Вы уверены?");
+				if (conf) {
+					CreditsExtension.sendTransaction({
+						target: 'J5tSM61AqGy9X9zvuZqcy25yGcTSm2XHm41bM4YuF3wc', 
+						amount: '0.1',
+						userData: 'hello'
+					}).then(r => {
+						console.log(r);
+						let key = r.status.message;
+						ace.edit('editorTrnsWithData').setValue(key + '');
+						$('body').css('cursor', 'default');
+					}, r => {
+						console.log(r);
+						$('body').css('cursor', 'default');
+						$("#TrnsWithDataInit").bind('click');
+						$("#TrnsWithDataInit").on('click', trnsMoney);
+					});
+				} else{
+					$('body').css('cursor', 'default');
+					$("#TrnsWithDataInit").bind('click');
+					$("#TrnsWithDataInit").on('click', trnsMoney);
+				}
+			}
+			
+			$('#MethodWithParamInit').on('click', methodWithParam);
+
+			function methodWithParam(){
+				$(this).unbind('click');
+				$('body').css('cursor', 'progress');
+				let conf = confirm("В данном примере спишется и вернется назад 0.1 cs с вычетом комиссии. Вы уверены?");
+				if (conf) {
+				CreditsExtension.sendTransaction({
+					target: 'J5tSM61AqGy9X9zvuZqcy25yGcTSm2XHm41bM4YuF3wc',
+					amount: "0.1"
+				}).then(r => {
+
+					CreditsExtension.sendTransaction({
+						target: 'J5tSM61AqGy9X9zvuZqcy25yGcTSm2XHm41bM4YuF3wc',
+						smartContract:
+						{
+							params: [{ k: "INT", v: 2 }, { k: "INT", v: 3 }],
+							method: "sum"
+						}
+					}).then(r => {
+						console.log(r);
+						$('body').css('cursor', 'default');
+						let key = JSON.parse(r.smart_contract_result.v_string);
+						ace.edit('editorMethodWithParam').setValue(key.result + '');
+					}, r=> {console.log(r); $('body').css('cursor', 'default');
+							$("#MethodWithParamInit").bind('click');
+							$("#MethodWithParamInit").on('click', trnsMoney);
+				});
+
+				}, r=> {console.log(r);
+					$('body').css('cursor', 'default');
+					$("#MethodWithParamInit").bind('click');
+					$("#MethodWithParamInit").on('click', trnsMoney);
+				});
+				} else{
+					$('body').css('cursor', 'default');
+					$("#MethodWithParamInit").bind('click');
+					$("#MethodWithParamInit").on('click', trnsMoney);
+				}
+			}
+
+			let code = `import com.credits.scapi.v0.BasicStandard;
+import com.credits.scapi.v0.SmartContract;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import static java.math.BigDecimal.ZERO;
+import static java.math.RoundingMode.DOWN;
+
+public class TokenExtensionV2Standard extends SmartContract implements BasicStandard {
+
+	protected final String owner;
+	private final BigDecimal tokenCost;
+	private final int decimal;
+	HashMap<String, Balance> balances;
+	private String name;
+	private String symbol;
+	private BigDecimal freeCoins;
+	private BigDecimal totalCoins;
+	private HashMap<String, Map<String, BigDecimal>> allowed;
+	private boolean frozen;
+
+	public TokenExtensionV2Standard() {
+		super();
+		name = "CreditsToken";
+		symbol = "CST";
+		decimal = 12345;
+		tokenCost = scale(new BigDecimal(1));
+		totalCoins = scale(new BigDecimal(10_000_000));
+		freeCoins = scale(new BigDecimal(9_000_000));
+		owner = initiator;
+		allowed = new HashMap<>();
+		balances = new HashMap<>();
+		balances.put(owner, createBalance(scale(new BigDecimal(0L))));
+	}
+
+	public int getDecimal() {
+		return decimal;
+	}
+
+	public boolean setFrozen(boolean isFrozen) {
+		checkWhitelist(initiator);
+		checkBlacklist(initiator);
+		if (!initiator.equals(owner)) {
+			throw new RuntimeException(String.format("unable change frozen state! The wallet %s is not owner", initiator));
+		}
+		this.frozen = isFrozen;
+		return true;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getSymbol() {
+		return symbol;
+	}
+
+	public String totalSupply() {
+		checkWhitelist(initiator);
+		checkBlacklist(initiator);
+		return totalCoins.toString();
+	}
+
+	public String balanceOf(String owner) {
+		checkWhitelist(initiator);
+		checkBlacklist(initiator, owner);
+		return getTokensBalance(owner).toString();
+	}
+
+	public String allowance(String owner, String spender) {
+		checkWhitelist(initiator);
+		checkBlacklist(initiator);
+		if (allowed.get(owner) == null) {
+			return "0";
+		}
+		BigDecimal amount = allowed.get(owner).get(spender);
+		return amount != null ? amount.toString() : "0";
+	}
+
+	@Override
+	public boolean transfer(String to, String amount) {
+		contractIsNotFrozen();
+		if (!to.equals(initiator)) {
+			checkWhitelist(initiator, to);
+			checkBlacklist(initiator, to);
+			BigDecimal bdAmount = scale(new BigDecimal(amount));
+			BigDecimal sourceBalance = getTokensBalance(initiator);
+			BigDecimal targetTokensBalance = getTokensBalance(to);
+			if (sourceBalance.compareTo(bdAmount) < 0) {
+				throw new RuntimeException(String.format("the wallet %s doesn't have enough tokens to transfer", initiator));
+			}
+			balances.put(initiator, createBalance(sourceBalance.subtract(bdAmount)));
+			balances.put(to, createBalance(targetTokensBalance.add(bdAmount)));
+		}
+		return true;
+	}
+
+	private void checkBlacklist(String... wallets) {
+		Stream.of(wallets).forEach(
+			wallet ->
+				Optional.ofNullable(balances.get(wallet)).ifPresent(balance -> {
+					if (balance.isBanned()) {
+						throw new RuntimeException(String.format("unable to perform operation! The wallet %s is blacklisted.", wallet));
+					}
+				})
+		);
+	}
+
+	private void checkWhitelist(String... wallets) {
+		Stream.of(wallets).forEach(
+			wallet ->
+				Optional.ofNullable(balances.get(wallet)).orElseThrow(
+						() -> new RuntimeException(String.format("unable to perform operation! The wallet %s is not in the whitelist.", wallet))
+				)
+		);
+	}
+
+	@Override
+	public boolean transferFrom(String from, String to, String amount) {
+		contractIsNotFrozen();
+		if (!from.equals(to)) {
+			checkWhitelist(initiator, from, to);
+			checkBlacklist(initiator, from, to);
+			BigDecimal sourceBalance = getTokensBalance(from);
+			BigDecimal targetTokensBalance = getTokensBalance(to);
+			BigDecimal bdAmount = scale(new BigDecimal(amount));
+			if (sourceBalance.compareTo(bdAmount) < 0)
+				throw new RuntimeException(String.format("unable transfer tokens! The balance of %s less then %s", from, bdAmount));
+
+			Map<String, BigDecimal> spender = allowed.get(from);
+			if (spender == null || !spender.containsKey(initiator))
+				throw new RuntimeException(String.format("unable transfer tokens! The wallet %s not allow transfer tokens for %s", from, to));
+
+			BigDecimal allowTokens = spender.get(initiator);
+			if (allowTokens.compareTo(bdAmount) < 0) {
+				throw new RuntimeException(String.format("unable transfer tokens! Not enough allowed tokens. For the wallet %s allow only %s tokens", initiator, allowTokens));
+			}
+			spender.put(initiator, allowTokens.subtract(bdAmount));
+			balances.put(from, createBalance(sourceBalance.subtract(bdAmount)));
+			balances.put(to, createBalance(targetTokensBalance.add(bdAmount)));
+		}
+		return true;
+	}
+
+	@Override
+	public void approve(String spender, String amount) {
+		checkWhitelist(spender);
+		checkBlacklist(spender);
+		BigDecimal bdAmount = scale(new BigDecimal(amount));
+		Map<String, BigDecimal> initiatorSpenders = allowed.get(initiator);
+		if (initiatorSpenders == null) {
+			Map<String, BigDecimal> newSpender = new HashMap<>();
+			newSpender.put(spender, bdAmount);
+			allowed.put(initiator, newSpender);
+		} else {
+			BigDecimal spenderAmount = initiatorSpenders.get(spender);
+			initiatorSpenders.put(spender, spenderAmount == null ? bdAmount : spenderAmount.add(bdAmount));
+		}
+	}
+
+	public boolean burn(String amount) {
+		BigDecimal bdAmount = new BigDecimal(amount);
+		checkWhitelist(initiator);
+		checkBlacklist(initiator);
+		contractIsNotFrozen();
+		bdAmount = scale(bdAmount);
+		BigDecimal sourceBalance = getTokensBalance(initiator);
+		checkNegative(bdAmount);
+		if (sourceBalance.compareTo(bdAmount) < 0) {
+			throw new RuntimeException(String.format("the wallet %s doesn't have enough tokens to burn", initiator));
+		}
+		totalCoins = totalCoins.subtract(bdAmount);
+		balances.put(initiator, createBalance(bdAmount));
+		return true;
+	}
+
+	public void addToBlacklist(String wallet) {
+		checkIsOwner();
+		Optional.ofNullable(balances.get(wallet)).ifPresentOrElse(
+			balance ->  balance.setBanned(true),
+			() -> balances.put(wallet, createBalance(ZERO, true))
+		);
+	}
+
+	public void removeFromBlacklist(String wallet) {
+		checkIsOwner();
+		Optional.ofNullable(balances.get(wallet)).ifPresent(
+			balance ->  balance.setBanned(false)
+		);
+	}
+
+	public void addToWhitelist(String wallet) {
+		checkIsOwner();
+		Optional.ofNullable(balances.get(wallet)).orElse(
+			balances.put(wallet, createBalance(ZERO, false))
+		);
+	}
+
+	public void removeFromWhitelist(String wallet) {
+		checkIsOwner();
+		balances.remove(wallet);
+	}
+
+	public String payable(BigDecimal amount, byte[] userData) {
+		checkWhitelist(initiator);
+		checkBlacklist(initiator);
+		contractIsNotFrozen();
+		if (freeCoins.compareTo(amount) < 0) throw new RuntimeException("not enough tokes to buy");
+		BigDecimal balanceAmount = Optional.ofNullable(balances.get(initiator)).orElse(createBalance(ZERO)).getAmount();
+		balances.put(initiator, createBalance(balanceAmount.add(amount)));
+		freeCoins = freeCoins.subtract(amount);
+		return "Success.";
+	}
+
+	private void contractIsNotFrozen() {
+		if (frozen) throw new RuntimeException("unavailable action! The smart-contract is frozen");
+	}
+
+	private BigDecimal scale(BigDecimal value) {
+		return value.setScale(decimal, DOWN);
+	}
+
+	private BigDecimal getTokensBalance(String address) {
+		return Optional.ofNullable(balances.get(address)).orElseGet(() -> {
+			Balance balance = createBalance(scale(ZERO));
+			balances.put(address, balance);
+			return  balance;
+		}).getAmount();
+	}
+
+	private void checkNegative(BigDecimal value) {
+		if(value.compareTo(ZERO) < 0) {
+			throw new IllegalArgumentException("the value cannot be negative");
+		}
+	}
+
+	private void checkIsOwner() {
+		if (!initiator.equals(owner)) {
+			throw new RuntimeException("403 Permission denied");
+		}
+	}
+
+	private Balance createBalance(BigDecimal amount) {
+		return new Balance(amount, false);
+	}
+
+	private Balance createBalance(BigDecimal amount, boolean banned) {
+		return new Balance(amount, banned);
+	}
+
+	protected static class Balance implements Serializable {
+		private BigDecimal amount;
+		private boolean banned;
+
+		public Balance(BigDecimal amount, boolean banned) {
+			this.amount = amount;
+			this.banned = banned;
+		}
+
+		public BigDecimal getAmount() {
+			return amount;
+		}
+
+		public boolean isBanned() {
+			return banned;
+		}
+
+		public void setAmount(BigDecimal amount) {
+			this.amount = amount;
+		}
+
+		public void setBanned(boolean banned) {
+			this.banned = banned;
+		}
+	}
+}`;
+
+			$('#compileInit').on('click', function(event) {
+				$(this).unbind('click');
+				$('body').css('cursor', 'progress');
+				CreditsExtension.compiledSmartContractCode(code).then(r=> {
+					console.log(r);
+					CreditsExtension.sendTransaction({
+						smartContract: {
+							code: code
+						}
+					}).then(r => {
+						console.log(r);
+						$('body').css('cursor', 'default');
+						ace.edit('editorCompile').setValue(r.status.message);
+					}, r=> {console.log(r)})
+				}, r=>  {console.log(r)});
+			});
+
+		});
+	</script>
+</body>
+</html>
