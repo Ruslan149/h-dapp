@@ -237,38 +237,19 @@
 			console.log(e.getValue());
 
 			$('#authorizationInit').on('click', function(event) {
-				CreditsExtension.authorization().then(
-					r=> {console.log(r);
-						// $('#authorization').html(r);
-						let authorization = r;
-						ace.edit('editorAuthorization').setValue(authorization + '');}, 
-						r=> {console.log(r)});
 
 			});
 
 			$('#balanceInit').on('click', function(event) {
-				CreditsExtension.balanceGet().then(r=> {
-					console.log(r);
-					// $('#balanceGet').html(r.Credits_CS);
-					let balance = r.Credits_CS
-					ace.edit('editor').setValue(balance + '');
-				}, r=>  {console.log(r)});
+				
 			});
 
 			$('#keyInit').on('click', function(event) {
-				CreditsExtension.curNet().then(r=> {
-					console.log(r);
-					let key = r;
-					ace.edit('editorKey').setValue(key + '');
-				}, r=>  {console.log(r)});
+				
 			});
 
 			$('#userKeyInit').on('click', function(event) {
-				CreditsExtension.user().then(r=> {
-					console.log(r);
-					let key = r;
-					ace.edit('editorUserKey').setValue(key + '');
-				}, r=>  {console.log(r)});
+				
 			});
 
 			$('#trnsMoneyInit').on('click', trnsMoney);
@@ -278,20 +259,7 @@
 				$('body').css('cursor', 'progress');
 				let conf = confirm("В данном примере спишется и вернется назад 0.1 cs с вычетом комиссии. Вы уверены?");
 				if (conf) {
-					CreditsExtension.sendTransaction({
-						target: 'J5tSM61AqGy9X9zvuZqcy25yGcTSm2XHm41bM4YuF3wc', 
-						amount: '0.1'
-					}).then(r => {
-						console.log(r);
-						let key = r.status.message;
-						ace.edit('editorTrnsMoney').setValue(key + '');
-						$('body').css('cursor', 'default');
-					}, r => {
-						console.log(r);
-						$('body').css('cursor', 'default');
-						$("#trnsMoneyInit").bind('click');
-						$("#trnsMoneyInit").on('click', trnsMoney);
-					});
+					
 				} else{
 					$('body').css('cursor', 'default');
 					$("#trnsMoneyInit").bind('click');
@@ -306,21 +274,7 @@
 				$('body').css('cursor', 'progress');
 				let conf = confirm("В данном примере спишется и вернется назад 0.1 cs с вычетом комиссии. Вы уверены?");
 				if (conf) {
-					CreditsExtension.sendTransaction({
-						target: 'J5tSM61AqGy9X9zvuZqcy25yGcTSm2XHm41bM4YuF3wc', 
-						amount: '0.1',
-						userData: 'hello'
-					}).then(r => {
-						console.log(r);
-						let key = r.status.message;
-						ace.edit('editorTrnsWithData').setValue(key + '');
-						$('body').css('cursor', 'default');
-					}, r => {
-						console.log(r);
-						$('body').css('cursor', 'default');
-						$("#TrnsWithDataInit").bind('click');
-						$("#TrnsWithDataInit").on('click', trnsMoney);
-					});
+					
 				} else{
 					$('body').css('cursor', 'default');
 					$("#TrnsWithDataInit").bind('click');
@@ -335,33 +289,7 @@
 				$('body').css('cursor', 'progress');
 				let conf = confirm("В данном примере спишется и вернется назад 0.1 cs с вычетом комиссии. Вы уверены?");
 				if (conf) {
-				CreditsExtension.sendTransaction({
-					target: 'J5tSM61AqGy9X9zvuZqcy25yGcTSm2XHm41bM4YuF3wc',
-					amount: "0.1"
-				}).then(r => {
 
-					CreditsExtension.sendTransaction({
-						target: 'J5tSM61AqGy9X9zvuZqcy25yGcTSm2XHm41bM4YuF3wc',
-						smartContract:
-						{
-							params: [{ k: "INT", v: 2 }, { k: "INT", v: 3 }],
-							method: "sum"
-						}
-					}).then(r => {
-						console.log(r);
-						$('body').css('cursor', 'default');
-						let key = JSON.parse(r.smart_contract_result.v_string);
-						ace.edit('editorMethodWithParam').setValue(key.result + '');
-					}, r=> {console.log(r); $('body').css('cursor', 'default');
-							$("#MethodWithParamInit").bind('click');
-							$("#MethodWithParamInit").on('click', trnsMoney);
-				});
-
-				}, r=> {console.log(r);
-					$('body').css('cursor', 'default');
-					$("#MethodWithParamInit").bind('click');
-					$("#MethodWithParamInit").on('click', trnsMoney);
-				});
 				} else{
 					$('body').css('cursor', 'default');
 					$("#MethodWithParamInit").bind('click');
@@ -654,18 +582,6 @@ public class TokenExtensionV2Standard extends SmartContract implements BasicStan
 			$('#compileInit').on('click', function(event) {
 				$(this).unbind('click');
 				$('body').css('cursor', 'progress');
-				CreditsExtension.compiledSmartContractCode(code).then(r=> {
-					console.log(r);
-					CreditsExtension.sendTransaction({
-						smartContract: {
-							code: code
-						}
-					}).then(r => {
-						console.log(r);
-						$('body').css('cursor', 'default');
-						ace.edit('editorCompile').setValue(r.status.message);
-					}, r=> {console.log(r)})
-				}, r=>  {console.log(r)});
 			});
 
 		});
